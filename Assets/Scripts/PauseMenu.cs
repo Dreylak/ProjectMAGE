@@ -6,15 +6,26 @@ public class PauseMenu : MonoBehaviour {
 
     public GameObject pauseMenuUI;
 
-    public void Pause()
+    public void ShowPauseMenu()
     {
+        GameMaster.Instance.PauseGame();
         pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
     }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        GameMaster.Instance.ResumeGame();
+    }
+
+    private void Update()
+    {
+        if (!pauseMenuUI.activeInHierarchy) return;
+        
+        if(Input.GetMouseButtonDown(0))
+        {
+            //TODO: timer
+            Resume();
+        }
     }
 }

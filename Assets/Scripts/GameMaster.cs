@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour {
 
@@ -20,16 +21,29 @@ public class GameMaster : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-
 	public enum ElementTypes { Fire, Water, Earth, Air , Neutral};
 
-    public void LoadGame()
+    public void GameOver()
     {
-        SceneManager.LoadScene("Game");
+        UIManager.Instance.ShowGameOver();
+
+        PlayerStats.SavePlayerData();
     }
 
-    public void LoadShop()
+    public void RestartGame()
     {
-        SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Game");
+        ResumeGame();
+        PlayerStats.SetPlayerData();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
     }
 }

@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour {
             if (resist.resistType == damageType)
             {
                 health -= (int)(damage * ((100 - resist.resistCount) / 100f));
-                Debug.Log("Health = " + health);
+                //Debug.Log("Health = " + health);
 
                 //change healthbar
                 healthbar.fillAmount = (float)health / maxHealth;
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour {
         if (health <= 0)
         {
             //give player a money of enemy type for killing the enemy
-            PlayerStats.AddMoney(type, reward);
+            PlayerStats.AddMoney(reward);
 
             Destroy();
         }

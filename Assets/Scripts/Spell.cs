@@ -16,12 +16,12 @@ public class Spell : MonoBehaviour {
 
     public GameMaster.ElementTypes damageType = GameMaster.ElementTypes.Neutral;
 
-    void Start()
-    {
-    }
 
     void FixedUpdate()
     {
+        //if spell animation is "Creating" stay on the spawn point
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Creating")) return;
+        
         //if spell reached the target deal damage and destroy spell
         if (targetReached) return;
 

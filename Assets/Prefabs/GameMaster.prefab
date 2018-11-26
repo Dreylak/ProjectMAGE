@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114390287474581084}
   - component: {fileID: 114015194545696226}
   - component: {fileID: 114215789949171174}
+  - component: {fileID: 114809919860436414}
+  - component: {fileID: 114461087844690898}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -64,9 +66,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732efb79a484d9a4d936e5ebe8cb4cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyTexts:
-  - {fileID: 0}
-  - {fileID: 0}
+  UI: {fileID: 0}
+  moneyText: {fileID: 0}
+  castleHPText: {fileID: 0}
+  castleShieldText: {fileID: 0}
 --- !u!114 &114390287474581084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,3 +81,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b60ed920b7b5648ac8d9b7b98e2346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverUI: {fileID: 0}
+--- !u!114 &114461087844690898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747795497386190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8c787ee282ae54ab8e3f31eacf0711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverUI: {fileID: 0}
+--- !u!114 &114809919860436414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747795497386190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a92b2b21cfded4eb624f6f0e0db223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}

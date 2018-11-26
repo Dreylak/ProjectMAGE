@@ -173,7 +173,7 @@ MonoBehaviour:
   speed: 0.82
   maxHealth: 100
   damage: 10
-  reward: 10
+  reward: 1
   resists:
   - resistType: 0
     resistCount: -50

@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Mage : MonoBehaviour {
 
-    public static Mage Instance { get; private set; }
-
     public float Cooldown
     {
         get
@@ -18,17 +16,6 @@ public class Mage : MonoBehaviour {
         {
             cooldown = value;
         }
-    }
-
-    void Awake()
-    {
-        if (Instance != null)
-        {
-            Debug.Log("There is more than one Mage in the game!");
-            return;
-        }
-
-        Instance = this;    
     }
 
     public Animator animator;
@@ -45,9 +32,21 @@ public class Mage : MonoBehaviour {
     //time for cast animation before spell created
     private float castTime;
 
-
     //limits the area on the screen where spell can be casted (only above the castle)
     private float areaToCast;
+
+    //mage is singleton to save reference to mage in spell select buttons
+    public static Mage Instance { get; private set; }
+    private void Awake()
+    {
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -59,7 +58,7 @@ public class Mage : MonoBehaviour {
     //NEED FIX.... maybe
     void FindAreaToCast()
     {
-        areaToCast = Castle.Instance.transform.position.y;
+        areaToCast = -4;
         Debug.Log(areaToCast);
     }
 
@@ -70,7 +69,7 @@ public class Mage : MonoBehaviour {
             if (Cooldown <= 0f)
             {
                 //get mouse coordinates
-                //NEED FIX FOR ANDROID (when in pause menu spells continue to spawn)
+                //NEED FIX Dont cast spell if pressed on UI ellement(except healthbars)
                 //if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,11 +80,10 @@ public class Mage : MonoBehaviour {
 
                         //wait for cast animation
                         //implement
-                        //WaitForAnimation(animator);
+                        //StartCoroutine(WaitForAnimation(animator));
+                        //Debug.Log("Animation ended");
 
                         CreateSpell(target);
-                        //animator.ResetTrigger("castSpell");
-
                         cooldown = spellCooldown;
                     }
                 }
@@ -96,6 +94,7 @@ public class Mage : MonoBehaviour {
         if (Cooldown >= 0f)
             Cooldown -= Time.deltaTime;
     }
+
 
     //create a spell that will move to the point where was clicked
     void CreateSpell(Vector2 target)

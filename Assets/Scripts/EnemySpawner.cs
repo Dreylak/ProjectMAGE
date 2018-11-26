@@ -45,6 +45,6 @@ public class EnemySpawner : MonoBehaviour {
         Vector2 spawnPosition = new Vector2(Random.Range(leftBorder, rightBorder), spawnPoint.position.y);
 
         Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPosition, Quaternion.identity);
-        Debug.Log("Enemy spawned!");
+        //Debug.Log("Enemy spawned!");
     }
 }
