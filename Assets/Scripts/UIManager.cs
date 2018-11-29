@@ -25,22 +25,22 @@ public class UIManager : MonoBehaviour {
 
     void Start()
     {
-        moneyText.text = PlayerStats.Money.ToString();
+        moneyText.text = PlayerStats.money.ToString();
 
-        castleHPText.text = PlayerStats.CastleMaxHP.ToString();
-        castleShieldText.text = PlayerStats.CastleMaxShield.ToString();
+        castleHPText.text = PlayerStats.castleMaxHP.ToString();
+        castleShieldText.text = PlayerStats.castleMaxShield.ToString();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        moneyText.text = PlayerStats.Money.ToString();
+        moneyText.text = PlayerStats.money.ToString();
 
         castleHPText.text = Castle.Instance.Health.ToString();
         castleShieldText.text = Castle.Instance.Shield.ToString();
     }
 
-    public void ShowGameOver()
+    public void ShowGameOverMenu()
     {
         gameObject.GetComponent<GameOverMenu>().ShowGameOverMenu();
     }

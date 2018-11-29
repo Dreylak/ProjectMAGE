@@ -5,27 +5,14 @@ using UnityEngine.EventSystems;
 
 public class Mage : MonoBehaviour {
 
-    public float Cooldown
-    {
-        get
-        {
-            return cooldown;
-        }
-
-        set
-        {
-            cooldown = value;
-        }
-    }
-
     public Animator animator;
 
     public GameObject defaultSpell;
     public Transform spellSpawnPoint;
 
     private GameObject selectedSpell;
+    public GameObject SelectedSpell { get; set; }
 
-    private float spellCooldown;
     //cooldown = 0 to give opportunity to cast first spell immediately
     private float cooldown = 0f;
 
@@ -37,6 +24,7 @@ public class Mage : MonoBehaviour {
 
     //mage is singleton to save reference to mage in spell select buttons
     public static Mage Instance { get; private set; }
+
     private void Awake()
     {
         if(Instance != null)
@@ -50,8 +38,7 @@ public class Mage : MonoBehaviour {
 
     void Start()
     {
-        //get spell cooldown from spell params
-        SelectSpell(defaultSpell);
+        SelectedSpell = defaultSpell;
         FindAreaToCast();
     }
 
@@ -62,37 +49,46 @@ public class Mage : MonoBehaviour {
         Debug.Log(areaToCast);
     }
 
-    void Update()
+    private bool IsMouseOverUI()
     {
-        if (Input.GetButtonDown("Fire1"))
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResultList = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultList);
+
+        for(int i = 0; i < raycastResultList.Count; i++)
         {
-            if (Cooldown <= 0f)
+            if(raycastResultList[i].gameObject.layer == LayerMask.NameToLayer("UI"))
             {
-                //get mouse coordinates
-                //NEED FIX Dont cast spell if pressed on UI ellement(except healthbars)
-                //if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                    if (target.y > areaToCast)
-                    {
-                        animator.SetTrigger("castSpell");
-
-                        //wait for cast animation
-                        //implement
-                        //StartCoroutine(WaitForAnimation(animator));
-                        //Debug.Log("Animation ended");
-
-                        CreateSpell(target);
-                        cooldown = spellCooldown;
-                    }
-                }
-
+                return true;
             }
         }
-     
-        if (Cooldown >= 0f)
-            Cooldown -= Time.deltaTime;
+  
+        return false;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
+        {
+            if (cooldown <= 0f)
+            {
+                //get mouse coordinates
+                Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                if (target.y > areaToCast)
+                {
+                    animator.SetTrigger("castSpell");
+
+                    CreateSpell(target);
+                    cooldown = SelectedSpell.GetComponent<Spell>().stats.cooldown;
+                }
+            }
+        }
+
+        if (cooldown >= 0f)
+            cooldown -= Time.deltaTime;
     }
 
 
@@ -104,7 +100,7 @@ public class Mage : MonoBehaviour {
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         spellSpawnPoint.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-        GameObject spellGO = (GameObject)Instantiate(selectedSpell, 
+        GameObject spellGO = (GameObject)Instantiate(SelectedSpell, 
                                                     spellSpawnPoint.position, 
                                                     spellSpawnPoint.rotation);
         Spell spell = spellGO.GetComponent<Spell>();
@@ -113,10 +109,4 @@ public class Mage : MonoBehaviour {
             spell.SetTarget(target);
     }
 
-    //change spell that will be casted after click
-    public void SelectSpell(GameObject spell)
-    {
-        selectedSpell = spell;
-        spellCooldown = selectedSpell.GetComponent<Spell>().cooldown;
-    }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using Utilities;
 
 public class Enemy : MonoBehaviour {
 
-    public GameMaster.ElementTypes type;
+    public ElementTypes type;
     public float speed = 1f;
     public int maxHealth = 100;
     private int health = 100;
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour {
         transform.Translate(Vector2.down * Time.deltaTime * speed, Space.World);
     }
 
-    public void TakeDamage(int damage, GameMaster.ElementTypes damageType)
+    public void TakeDamage(int damage, ElementTypes damageType)
     {
         foreach(Resist resist in resists)
         {
@@ -56,6 +57,15 @@ public class Enemy : MonoBehaviour {
 
     public void Destroy()
     {
-        Destroy(gameObject);
+        //
+        //stop enemy
+        speed *= 0.5f;
+
+        //hide healthbar
+        gameObject.GetComponentInChildren<Canvas>().enabled = false;
+
+        Animator animator = gameObject.GetComponent<Animator>();
+        animator.SetTrigger("destroy");
+        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
     }
 }

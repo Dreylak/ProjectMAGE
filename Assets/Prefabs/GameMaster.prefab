@@ -21,9 +21,7 @@ GameObject:
   - component: {fileID: 4267750680587738}
   - component: {fileID: 114390287474581084}
   - component: {fileID: 114015194545696226}
-  - component: {fileID: 114215789949171174}
-  - component: {fileID: 114809919860436414}
-  - component: {fileID: 114461087844690898}
+  - component: {fileID: 114501471246997542}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -55,21 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a75617d4cd53bb949a9af9b526ee7fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114215789949171174
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747795497386190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732efb79a484d9a4d936e5ebe8cb4cee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 0}
-  moneyText: {fileID: 0}
-  castleHPText: {fileID: 0}
-  castleShieldText: {fileID: 0}
 --- !u!114 &114390287474581084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,8 +64,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b60ed920b7b5648ac8d9b7b98e2346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 0}
---- !u!114 &114461087844690898
+  castle: {fileID: 114688065676301038, guid: 6bb1819c37199b544ace4341923a4d1d, type: 2}
+  spells:
+  - {fileID: 114365943886901572, guid: f3ee64691a66c6145801af385ba0e62e, type: 2}
+  - {fileID: 114516083732662024, guid: 6e736547161455645a619c05c8b9469e, type: 2}
+--- !u!114 &114501471246997542
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,19 +76,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1747795497386190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8c787ee282ae54ab8e3f31eacf0711, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c700ccd2211c9d45bc7805f5c6a7f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 0}
---- !u!114 &114809919860436414
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747795497386190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08a92b2b21cfded4eb624f6f0e0db223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 0}

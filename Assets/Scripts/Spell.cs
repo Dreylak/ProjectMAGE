@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class Spell : MonoBehaviour {
 
@@ -8,14 +9,13 @@ public class Spell : MonoBehaviour {
 
     Vector2 target;
 
-    public float speed = 1f;
-    public float cooldown = 1f;
+    public SpellStats stats;
+
     public float damageRadius = 2f;
-    public int damage = 50;
+
     private bool targetReached = false;
 
-    public GameMaster.ElementTypes damageType = GameMaster.ElementTypes.Neutral;
-
+    public ElementTypes damageType = ElementTypes.Neutral;
 
     void FixedUpdate()
     {
@@ -34,14 +34,14 @@ public class Spell : MonoBehaviour {
 
             //change animation to destroying animation
             animator.SetBool("targetReached", true);
-
+            //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
             return;
         }
 
         transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y),
                                                  new Vector2(target.x, target.y), 
-                                                 speed * Time.deltaTime);
+                                                 stats.speed * Time.deltaTime);
 
     }
 
@@ -58,7 +58,7 @@ public class Spell : MonoBehaviour {
         {
             if(nearbyObjects.tag == "Enemy")
             {
-                nearbyObjects.GetComponent<Enemy>().TakeDamage(damage, damageType);
+                nearbyObjects.GetComponent<Enemy>().TakeDamage(stats.damage, damageType);
             }
         }
     }
