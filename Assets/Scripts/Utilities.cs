@@ -12,6 +12,13 @@ namespace Utilities
         public float speed = 1f;
         public float cooldown = 1f;
         public int damage = 50;
+
+        public SpellStats(Spell spell)
+        {
+            speed = spell.speed;
+            cooldown = spell.cooldown;
+            damage = spell.damage;
+        }
     }
 
     [System.Serializable]
@@ -19,11 +26,13 @@ namespace Utilities
     {
         public int money;
 
-        public SpellStats[] spellsStats;
+        public Dictionary<ElementTypes, SpellStats> spellsStats;
 
         public int castleMaxHP;
         public int castleMaxShield;
         public float castleShieldRecovery;
+
+        public UpgradesStatus upgradesStatus;
     }
 
     [System.Serializable]
@@ -36,19 +45,27 @@ namespace Utilities
     [System.Serializable]
     public class UpgradesStatus
     {
-        public int castleMaxShieldCost;
-        public int castleShieldRecoveryCost;
-
         public int castleMaxShieldUpgradesBought;
         public int castleShieldRecoveryCostUpgradesBought;
 
-        public int[] spellsSpeedUpgradeCost;
-        public int[] spellsDamageUpgradeCost;
-        public int[] spellsCooldownUpgradeCost;
-
-        public int[] spellsSpeedUpgradesBought;
-        public int[] spellsDamageUpgradesBought;
-        public int[] spellsCooldownUpgradesBought;
+        public Dictionary<ElementTypes, int> spellsSpeedUpgradesBought;
+        public Dictionary<ElementTypes, int> spellsDamageUpgradesBought;
+        public Dictionary<ElementTypes, int> spellsCooldownUpgradesBought;
     }
 
+    [System.Serializable]
+    public class SpellUpgradeUI
+    {
+        public ElementTypes type;
+        public GameObject damageUpgradeUI;
+        public GameObject speedUpgradeUI;
+        public GameObject cooldownUpgradeUI;
+    }
+
+    [System.Serializable]
+    public class CastleUpgradeUI
+    {
+        public GameObject maxShieldUpgradeUI;
+        public GameObject shiedRecoveryUpgradeUI;
+    }
 }

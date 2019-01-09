@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class ShopMenu : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class ShopMenu : MonoBehaviour {
     {
         GameMaster.Instance.PauseGame();
         shopMenu.SetActive(true);
+        UpgradeManager.Instance.ShowUpgrades();
     }
 
     public void CloseShop()

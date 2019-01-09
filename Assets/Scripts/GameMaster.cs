@@ -9,7 +9,17 @@ using Utilities;
 
 public class GameMaster : MonoBehaviour {
 
-    private const string saveFileName = "/test2.save";
+    //TODO: nada li?
+    [Header("Default params")]
+    #region DefaultParams
+    public int defaultMoney = 0;
+    public int defaultCastleMaxHP = 100;
+    public int defaultCastleMaxShield = 100;
+    public float defaultCastleShieldRecovery = 1f;
+    //TODO: public SpellStats[] defaultSpellsStats;
+    #endregion
+
+    private const string saveFileName = "/test12.save";
 
     public Castle castle;
     public Spell[] spells;
@@ -71,18 +81,7 @@ public class GameMaster : MonoBehaviour {
 
     private void StartNewGame()
     {
-        //set player stats to default
-        PlayerStats.money = 0;
-
-        PlayerStats.castleMaxHP = castle.maxHealth;
-        PlayerStats.castleMaxShield = castle.maxShield;
-        PlayerStats.castleShieldRecovery = castle.shieldRecovery;
-
-        PlayerStats.spellsStats = new SpellStats[spells.Length];
-        for (int i = 0; i < spells.Length; i++)
-        {
-            PlayerStats.spellsStats[i] = spells[i].stats;
-        }
+        PlayerStats.SetToDefault();
     }
 
     //set saved player stats to game
@@ -91,12 +90,11 @@ public class GameMaster : MonoBehaviour {
         castle.GetComponent<Castle>().maxHealth = PlayerStats.castleMaxHP;
         castle.GetComponent<Castle>().maxShield = PlayerStats.castleMaxShield;
 
-        //debug
-        if (PlayerStats.spellsStats == null) Debug.Log("ps spells is null");
-
         for(int i = 0; i < spells.Length; i++)
         {
-            spells[i].stats = PlayerStats.spellsStats[i];
+            spells[i].damage = PlayerStats.spellsStats[(ElementTypes)i].damage;
+            spells[i].speed = PlayerStats.spellsStats[(ElementTypes)i].speed;
+            spells[i].cooldown = PlayerStats.spellsStats[(ElementTypes)i].cooldown;
         }
     }
 
@@ -106,17 +104,8 @@ public class GameMaster : MonoBehaviour {
 
         save.money = PlayerStats.money;
 
-        if (PlayerStats.spellsStats == null)
-        {
-            for (int i = 0; i < spells.Length; i++)
-            {
-                save.spellsStats[i] = spells[i].stats;
-            }
-        }
-        else
-        {
-            save.spellsStats = PlayerStats.spellsStats;
-        }
+        save.spellsStats = PlayerStats.spellsStats;
+        save.upgradesStatus = PlayerStats.upgradesStatus;
 
         save.castleMaxHP = PlayerStats.castleMaxHP;
         save.castleMaxShield = PlayerStats.castleMaxShield;
@@ -149,6 +138,8 @@ public class GameMaster : MonoBehaviour {
             PlayerStats.money = save.money;
 
             PlayerStats.spellsStats = save.spellsStats;
+
+            PlayerStats.upgradesStatus = save.upgradesStatus;
 
             Debug.Log("Game Loaded");
             return true;

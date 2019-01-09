@@ -72,10 +72,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95262456921606876}
-  stats:
-    speed: 10
-    cooldown: 0
-    damage: 50
+  speed: 5
+  cooldown: 0
+  damage: 50
   damageRadius: 0.5
   damageType: 1
 --- !u!212 &212817972139294524

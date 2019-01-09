@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour {
         if (health <= 0)
         {
             //give player a money of enemy type for killing the enemy
-            PlayerStats.AddMoney(reward);
+            PlayerStats.money += reward;
 
             Destroy();
         }
@@ -57,7 +57,6 @@ public class Enemy : MonoBehaviour {
 
     public void Destroy()
     {
-        //
         //stop enemy
         speed *= 0.5f;
 
@@ -66,6 +65,8 @@ public class Enemy : MonoBehaviour {
 
         Animator animator = gameObject.GetComponent<Animator>();
         animator.SetTrigger("destroy");
+
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
         Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
     }
 }

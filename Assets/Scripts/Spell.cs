@@ -9,13 +9,22 @@ public class Spell : MonoBehaviour {
 
     Vector2 target;
 
-    public SpellStats stats;
+    public float speed = 5f;
+    public float cooldown = 0f;
+    public int damage = 50;
 
     public float damageRadius = 2f;
 
     private bool targetReached = false;
 
     public ElementTypes damageType = ElementTypes.Neutral;
+
+    private void Start()
+    {
+        damage = PlayerStats.spellsStats[damageType].damage;
+        speed = PlayerStats.spellsStats[damageType].speed;
+        cooldown = PlayerStats.spellsStats[damageType].cooldown;
+    }
 
     void FixedUpdate()
     {
@@ -41,7 +50,7 @@ public class Spell : MonoBehaviour {
 
         transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y),
                                                  new Vector2(target.x, target.y), 
-                                                 stats.speed * Time.deltaTime);
+                                                 speed * Time.deltaTime);
 
     }
 
@@ -58,7 +67,7 @@ public class Spell : MonoBehaviour {
         {
             if(nearbyObjects.tag == "Enemy")
             {
-                nearbyObjects.GetComponent<Enemy>().TakeDamage(stats.damage, damageType);
+                nearbyObjects.GetComponent<Enemy>().TakeDamage(damage, damageType);
             }
         }
     }

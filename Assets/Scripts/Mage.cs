@@ -82,7 +82,7 @@ public class Mage : MonoBehaviour {
                     animator.SetTrigger("castSpell");
 
                     CreateSpell(target);
-                    cooldown = SelectedSpell.GetComponent<Spell>().stats.cooldown;
+                    cooldown = SelectedSpell.GetComponent<Spell>().cooldown;
                 }
             }
         }
